@@ -1,70 +1,76 @@
 <!doctype html>
-<html lang="ja">
-<head>
+<html lang="ja"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <title>ガチャガチャ</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;background:#10261a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Maru Gothic ProN",sans-serif}
-.stage{position:relative;width:min(100vw,610px);aspect-ratio:610/665;margin:auto;background:url("gacha-bg.jpg") center/100% 100% no-repeat;overflow:hidden}
-.status{position:absolute;right:2.8%;top:2.2%;width:34%;display:flex;flex-direction:column;gap:5px;z-index:5}
-.pill{background:#172554e8;border:2px solid #d9efff;border-radius:18px;color:white;padding:4px 9px;text-align:center;font-size:clamp(10px,2.8vw,16px);font-weight:1000;box-shadow:0 2px 6px #0007}
-.pill b{color:#ffe23d}.pay{position:absolute;left:4%;right:4%;bottom:16.2%;display:flex;gap:8px;z-index:6}
-.pay button{flex:1;border:3px solid white;border-radius:16px;padding:7px 3px;font-weight:1000;font-size:clamp(10px,3vw,16px);box-shadow:0 4px #3f4776}
-.pay .active{background:#ffe55d}.pay button:not(.active){background:#d9edff}
-.hit{position:absolute;bottom:7.2%;height:10.8%;border:0;background:transparent;z-index:7;color:transparent}
-.hit.one{left:5%;width:40%}.hit.ten{right:5%;width:40%}
-.menu{position:absolute;right:2.5%;bottom:1.5%;z-index:8;border:3px solid white;border-radius:50%;width:44px;height:44px;background:#234d9b;color:white;font-size:22px}
-#result{display:none;position:fixed;inset:0;background:#000b;z-index:50;align-items:center;justify-content:center;padding:14px}
-#result.show{display:flex}.card{width:min(440px,94vw);background:radial-gradient(circle,#b8ff7c,#42cf49);border:6px solid white;border-radius:24px;padding:18px;text-align:center;color:#171717}
-.rare{font-size:31px;font-weight:1000;color:#ffe72e;-webkit-text-stroke:2px #222}.capsule{display:flex;align-items:center;justify-content:center;margin:8px}
-.half{width:67px;height:67px;border:5px solid #fff9;border-radius:70px 70px 10px 10px;transform:rotate(-35deg);margin:0 6px}.half.r{transform:rotate(145deg)}
-.silver{background:#bdc6d1}.blue{background:#1875ee}.red{background:#ef3348}.gold{background:#e8ae20}.black{background:#080808;box-shadow:0 0 14px #df67ff}
-.icon{font-size:70px}.name{font-size:23px;font-weight:1000}.ok{padding:10px 34px;border:3px solid #777;border-radius:20px;background:white;font-weight:1000}
-.drawer{display:none;position:fixed;inset:0;background:#0009;z-index:40}.drawer.show{display:block}.panel{position:absolute;right:12px;top:70px;width:270px;padding:12px;border:4px solid white;border-radius:20px;background:#55bdf0}.panel a{display:inline-block;width:47%;margin:1%;padding:13px 3px;border-radius:13px;background:white;text-align:center;color:#14224d;text-decoration:none;font-weight:900}
-.note{max-width:610px;margin:auto;background:#fff6cf;padding:10px 14px;font-size:12px;font-weight:700}
-</style>
-</head>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#0e2718;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Maru Gothic ProN",sans-serif}
+.stage{position:relative;width:min(100vw,610px);aspect-ratio:610/665;margin:0 auto;background:url("gacha-bg.jpg") center/100% 100% no-repeat;overflow:hidden}
+.tap{position:absolute;z-index:10;border:0;background:transparent;appearance:none;-webkit-appearance:none;touch-action:manipulation}
+#one{left:4.5%;bottom:7.0%;width:40.5%;height:14%}
+#ten{right:4.5%;bottom:7.0%;width:40.5%;height:14%}
+#back{right:0;bottom:0;width:23%;height:7%}
+.switcher{position:absolute;z-index:12;left:50%;transform:translateX(-50%);top:15%;display:flex;gap:5px;background:#102846d9;border:2px solid #fff;border-radius:18px;padding:4px}
+.switcher button{border:0;border-radius:13px;padding:6px 9px;font-size:11px;font-weight:900;background:#dbeeff;color:#17345b}
+.switcher button.active{background:#ffe149}
+.live{position:absolute;z-index:12;right:3%;top:2.2%;background:#122a45e8;border:2px solid #bfeaff;border-radius:20px;padding:5px 10px;color:#fff;font-size:12px;font-weight:900}
+.live b{color:#ffe23b}
+#result{display:none;position:fixed;inset:0;z-index:100;background:#000b;align-items:center;justify-content:center;padding:14px}
+#result.show{display:flex}
+.card{width:min(430px,94vw);background:radial-gradient(circle,#c9ff88,#47d052);border:6px solid #fff;border-radius:25px;padding:18px;text-align:center;color:#151515}
+.card .rare{font-size:30px;font-weight:1000;color:#ffe33d;text-shadow:2px 3px #222}
+.card img{width:155px;height:155px;object-fit:contain;filter:drop-shadow(2px 4px 2px #0005)}
+.card h2{margin:4px 0}.card button{padding:10px 35px;border:3px solid #777;border-radius:20px;background:#fff;font-weight:1000}
+#flash{display:none;position:absolute;inset:0;z-index:20;background:#fff9;pointer-events:none}#flash.go{display:block;animation:f .35s forwards}@keyframes f{to{opacity:0}}
+</style></head>
 <body>
-<div class="stage">
-  <div class="status"><div class="pill">🪙 <b id="money">0P</b></div><div class="pill">EXP <b id="exp">0</b></div></div>
-  <div class="pay"><button id="pm" class="active" onclick="pay='money';sync()">🪙 たびマネーで回す</button><button id="pe" onclick="pay='exp';sync()">EXPで回す</button></div>
-  <button class="hit one" aria-label="1回まわす" onclick="pull(1,500)">1回</button>
-  <button class="hit ten" aria-label="10回まわす" onclick="pull(10,4500)">10回</button>
-  <button class="menu" onclick="drawer.classList.add('show')">☰</button>
+<div class="stage" id="stage">
+  <div class="live">🪙 <b id="moneyText">0P</b><br>EXP <b id="expText">0</b></div>
+  <div class="switcher"><button id="moneyMode" class="active" type="button">たびマネー</button><button id="expMode" type="button">EXP</button></div>
+  <button class="tap" id="one" type="button" aria-label="1回まわす"></button>
+  <button class="tap" id="ten" type="button" aria-label="10回まわす"></button>
+  <button class="tap" id="back" type="button" aria-label="もどる"></button>
+  <div id="flash"></div>
 </div>
-<div class="note">画像の「1回まわす」「10回まわす」をそのままタップできるよ。支払いは上のボタンで、たびマネー／EXPを切り替え！</div>
-
 <div id="result"><div class="card" id="card"></div></div>
-<div class="drawer" id="drawer" onclick="if(event.target===this)this.classList.remove('show')"><div class="panel">
-<a href="inventory.html">🎒 もちもの</a><a href="gacha.html">🎰 ガチャ</a><a href="menu.html">📖 にっき</a><a href="map-kyoto.html">🗺️ MAP</a>
-</div></div>
-
 <script>
-const MONEY='einana-game-money-v1', EXP='einana-total-exp-v1', INV='einana-gacha-inventory-v2';
-const ITEMS=[
-{id:'snack',n:'おやつ券',r:'ノーマル',col:'silver',icon:'🍭',d:'旅行中のおやつタイムに使える券。'},
-{id:'photo',n:'写真ポーズ指定券',r:'ノーマル',col:'silver',icon:'📸',d:'次の写真のポーズを決められる券。'},
-{id:'drink',n:'ドリンク券',r:'ノーマル',col:'silver',icon:'🥤',d:'休憩タイムに使えるドリンク券。'},
-{id:'food',n:'食べ歩き券',r:'レア',col:'blue',icon:'🍡',d:'食べ歩きで好きなものを選べる券。'},
-{id:'wish',n:'お願いできる券',r:'レア',col:'blue',icon:'💌',d:'相手にかわいいお願いを1つできる券。'},
-{id:'date',n:'デート先決定券',r:'Sレア',col:'red',icon:'🎡',d:'次のデート先を決められる特別な券。'},
-{id:'key',n:'思い出キーホルダー',r:'Sレア',col:'red',icon:'🔑',d:'旅の思い出を残す記念アイテム。'},
-{id:'reward',n:'スペシャルごほうび券',r:'超レア',col:'gold',icon:'👑',d:'2人だけの特別なごほうび券。'},
-{id:'night',n:'大阪の夜景キーホルダー',r:'神レア',col:'black',icon:'🌃',d:'夜景の思い出がつまった最高レアアイテム。'},
-{id:'xp50',n:'けいけんちだま・小',r:'ノーマル',col:'silver',icon:'🔵',xp:50,d:'使うと けいけんち +50。'},
-{id:'xp200',n:'けいけんちだま・中',r:'レア',col:'blue',icon:'🔥',xp:200,d:'使うと けいけんち +200。'},
-{id:'xp500',n:'けいけんちだま・大',r:'超レア',col:'gold',icon:'🔮',xp:500,d:'使うと けいけんち +500。'},
-{id:'xp1000',n:'けいけんちだま・極',r:'神レア',col:'black',icon:'🌈',xp:1000,d:'使うと けいけんち +1000。'}];
+const MONEY='einana-game-money-v1';
+const EXP='einana-total-exp-v1';
+const INV='einana-gacha-inventory-v2';
+const ITEMS=[{"id": "onigiri", "name": "おにぎり", "rarity": "ノーマル", "img": "item-images/onigiri.webp"}, {"id": "water", "name": "ミネラルウォーター", "rarity": "ノーマル", "img": "item-images/water.webp"}, {"id": "candy", "name": "飴ちゃん", "rarity": "ノーマル", "img": "item-images/candy.webp"}, {"id": "bandage", "name": "絆創膏", "rarity": "ノーマル", "img": "item-images/bandage.webp"}, {"id": "tissue", "name": "ポケットティッシュ", "rarity": "ノーマル", "img": "item-images/tissue.webp"}, {"id": "guidebook", "name": "ガイドブック", "rarity": "ノーマル", "img": "item-images/guidebook.webp"}, {"id": "camera", "name": "使い捨てカメラ", "rarity": "ノーマル", "img": "item-images/camera.webp"}, {"id": "umbrella", "name": "折りたたみ傘", "rarity": "ノーマル", "img": "item-images/umbrella.webp"}, {"id": "wetsheet", "name": "ウェットシート", "rarity": "ノーマル", "img": "item-images/wetsheet.webp"}, {"id": "ecobag", "name": "エコバッグ", "rarity": "ノーマル", "img": "item-images/ecobag.webp"}, {"id": "takoyaki", "name": "たこ焼き", "rarity": "レア", "img": "item-images/takoyaki.webp"}, {"id": "okonomiyaki", "name": "お好み焼き", "rarity": "レア", "img": "item-images/okonomiyaki.webp"}, {"id": "matcha", "name": "抹茶スイーツ", "rarity": "レア", "img": "item-images/matcha.webp"}, {"id": "nikuman", "name": "肉まん", "rarity": "レア", "img": "item-images/nikuman.webp"}, {"id": "purikura", "name": "プリクラ券", "rarity": "レア", "img": "item-images/purikura.webp"}, {"id": "ferris_ticket", "name": "観覧車チケット", "rarity": "レア", "img": "item-images/ferris_ticket.webp"}, {"id": "cookie", "name": "お土産クッキー", "rarity": "レア", "img": "item-images/cookie.webp"}, {"id": "local_drink", "name": "ご当地ドリンク", "rarity": "レア", "img": "item-images/local_drink.webp"}, {"id": "headband", "name": "カチューシャ", "rarity": "レア", "img": "item-images/headband.webp"}, {"id": "photo_props", "name": "フォトプロップス", "rarity": "レア", "img": "item-images/photo_props.webp"}, {"id": "usj_ticket", "name": "USJチケット", "rarity": "Sレア", "img": "item-images/usj_ticket.webp"}, {"id": "minion", "name": "ミニオンぬいぐるみ", "rarity": "Sレア", "img": "item-images/minion.webp"}, {"id": "yatsuhashi", "name": "八ツ橋", "rarity": "Sレア", "img": "item-images/yatsuhashi.webp"}, {"id": "551", "name": "551の豚まん", "rarity": "Sレア", "img": "item-images/551.webp"}, {"id": "tumbler", "name": "スタバ限定タンブラー", "rarity": "Sレア", "img": "item-images/tumbler.webp"}, {"id": "kinkaku", "name": "金閣寺お守り", "rarity": "Sレア", "img": "item-images/kinkaku.webp"}, {"id": "takoyaki_key", "name": "たこ焼きキーホルダー", "rarity": "Sレア", "img": "item-images/takoyaki_key.webp"}, {"id": "kyoto_pouch", "name": "京都の和雑貨", "rarity": "Sレア", "img": "item-images/kyoto_pouch.webp"}, {"id": "neon_key", "name": "ネオンキーホルダー", "rarity": "Sレア", "img": "item-images/neon_key.webp"}, {"id": "food_map", "name": "食べ歩きマップ", "rarity": "Sレア", "img": "item-images/food_map.webp"}, {"id": "usj_headband", "name": "USJカチューシャ", "rarity": "超レア", "img": "item-images/usj_headband.webp"}, {"id": "pair_purikura", "name": "ペアプリクラ券", "rarity": "超レア", "img": "item-images/pair_purikura.webp"}, {"id": "kyoto_fan", "name": "京都の扇子", "rarity": "超レア", "img": "item-images/kyoto_fan.webp"}, {"id": "maiko_strap", "name": "舞妓さんストラップ", "rarity": "超レア", "img": "item-images/maiko_strap.webp"}, {"id": "premium_matcha", "name": "高級抹茶スイーツ", "rarity": "超レア", "img": "item-images/premium_matcha.webp"}, {"id": "hotel_ticket", "name": "ホテル宿泊券", "rarity": "超レア", "img": "item-images/hotel_ticket.webp"}, {"id": "pair_key", "name": "ペアお揃いキーホルダー", "rarity": "超レア", "img": "item-images/pair_key.webp"}, {"id": "neon_fan", "name": "ご当地ぬいぐるみ", "rarity": "超レア", "img": "item-images/neon_fan.webp"}, {"id": "local_plush", "name": "光るネオンうちわ", "rarity": "超レア", "img": "item-images/local_plush.webp"}, {"id": "photo_album", "name": "旅行フォトアルバム", "rarity": "超レア", "img": "item-images/photo_album.webp"}, {"id": "night_key", "name": "大阪の夜景キーホルダー", "rarity": "神レア", "img": "item-images/night_key.webp"}, {"id": "pair_ring", "name": "ペアリング", "rarity": "神レア", "img": "item-images/pair_ring.webp"}, {"id": "surprise_cake", "name": "サプライズケーキ券", "rarity": "神レア", "img": "item-images/surprise_cake.webp"}, {"id": "luxury_hotel", "name": "高級ホテル宿泊券", "rarity": "神レア", "img": "item-images/luxury_hotel.webp"}, {"id": "vip_usj", "name": "VIPパス（USJ）", "rarity": "神レア", "img": "item-images/vip_usj.webp"}, {"id": "memory_movie", "name": "旅行思い出ムービー券", "rarity": "神レア", "img": "item-images/memory_movie.webp"}, {"id": "gold_charm", "name": "金の御守り", "rarity": "神レア", "img": "item-images/gold_charm.webp"}, {"id": "photo_frame", "name": "限定フォトフレーム", "rarity": "神レア", "img": "item-images/photo_frame.webp"}, {"id": "trip_book", "name": "旅のしおり（特別Ver.）", "rarity": "神レア", "img": "item-images/trip_book.webp"}, {"id": "couple_plush", "name": "えいななペアぬいぐるみ", "rarity": "神レア", "img": "item-images/couple_plush.webp"}, {"id": "xp50", "name": "けいけんちだま・小", "rarity": "ノーマル", "img": "item-images/xp50.webp", "xp": 50}, {"id": "xp200", "name": "けいけんちだま・中", "rarity": "レア", "img": "item-images/xp200.webp", "xp": 200}, {"id": "xp500", "name": "けいけんちだま・大", "rarity": "超レア", "img": "item-images/xp500.webp", "xp": 500}, {"id": "xp1000", "name": "けいけんちだま・極", "rarity": "神レア", "img": "item-images/xp1000.webp", "xp": 1000}];
+const rank=['ノーマル','レア','Sレア','超レア','神レア'];
+let pay='money';
+const moneyText=document.getElementById('moneyText'),expText=document.getElementById('expText');
+const moneyMode=document.getElementById('moneyMode'),expMode=document.getElementById('expMode');
+const resultEl=document.getElementById('result'),cardEl=document.getElementById('card'),flash=document.getElementById('flash');
 function num(k){return Number(localStorage.getItem(k)||0)}
 function setn(k,v){localStorage.setItem(k,String(Math.max(0,v)))}
-function inv(){try{return JSON.parse(localStorage.getItem(INV)||'{}')}catch(e){return {}}}
-function save(v){localStorage.setItem(INV,JSON.stringify(v))}
-function pick(){let x=Math.random(),r=x<.01?'神レア':x<.07?'超レア':x<.22?'Sレア':x<.50?'レア':'ノーマル';let p=ITEMS.filter(i=>i.r===r);return p[Math.floor(Math.random()*p.length)]}
-let pay='money';
-function sync(){money.textContent=num(MONEY).toLocaleString()+'P';exp.textContent=num(EXP).toLocaleString();pm.classList.toggle('active',pay==='money');pe.classList.toggle('active',pay==='exp')}
-function pull(n,cost){let k=pay==='money'?MONEY:EXP;if(num(k)<cost){alert(pay==='money'?'たびマネーがたりない！':'けいけんちがたりない！');return}setn(k,num(k)-cost);sync();let v=inv(),got=[];for(let a=0;a<n;a++){let i=pick();got.push(i);v[i.id]=(v[i.id]||0)+1}save(v);let rank=['ノーマル','レア','Sレア','超レア','神レア'];got.sort((a,b)=>rank.indexOf(b.r)-rank.indexOf(a.r));setTimeout(()=>show(got[0],n),300)}
-function show(i,n){card.innerHTML='<div class="rare">'+i.r+'！</div><div class="capsule"><i class="half '+i.col+'"></i><div class="icon">'+i.icon+'</div><i class="half r '+i.col+'"></i></div><div class="name">'+i.n+'</div><p>'+i.d+'</p><b>'+n+'個のアイテムをGET！</b><br><button class="ok" onclick="result.classList.remove(\\'show\\')">A OK</button>';result.classList.add('show')}
+function getInv(){try{return JSON.parse(localStorage.getItem(INV)||'{}')}catch(e){return {}}}
+function saveInv(v){localStorage.setItem(INV,JSON.stringify(v))}
+function sync(){moneyText.textContent=num(MONEY).toLocaleString()+'P';expText.textContent=num(EXP).toLocaleString();moneyMode.classList.toggle('active',pay==='money');expMode.classList.toggle('active',pay==='exp')}
+function pick(){let x=Math.random(),r=x<.01?'神レア':x<.07?'超レア':x<.22?'Sレア':x<.50?'レア':'ノーマル';let pool=ITEMS.filter(i=>i.rarity===r);return pool[Math.floor(Math.random()*pool.length)]}
+function pull(n,cost){
+ const key=pay==='money'?MONEY:EXP;
+ if(num(key)<cost){alert(pay==='money'?'たびマネーがたりない！':'けいけんちがたりない！');return}
+ setn(key,num(key)-cost); sync();
+ let bag=getInv(),got=[];
+ for(let j=0;j<n;j++){let it=pick();if(!it)continue;got.push(it);bag[it.id]=(bag[it.id]||0)+1}
+ saveInv(bag);
+ flash.classList.remove('go');void flash.offsetWidth;flash.classList.add('go');
+ got.sort((a,b)=>rank.indexOf(b.rarity)-rank.indexOf(a.rarity));
+ setTimeout(()=>show(got[0],n),350);
+}
+function show(i,n){
+ if(!i)return;
+ cardEl.innerHTML='<div class="rare">'+i.rarity+'！</div><img src="'+i.img+'" alt=""><h2>'+i.name+'</h2><p>'+n+'個のアイテムをGET！</p><button id="ok">A OK</button>';
+ resultEl.classList.add('show');
+ document.getElementById('ok').addEventListener('click',()=>resultEl.classList.remove('show'));
+}
+moneyMode.addEventListener('click',()=>{pay='money';sync()});
+expMode.addEventListener('click',()=>{pay='exp';sync()});
+document.getElementById('one').addEventListener('click',()=>pull(1,500));
+document.getElementById('ten').addEventListener('click',()=>pull(10,4500));
+document.getElementById('back').addEventListener('click',()=>{location.href='inventory.html'});
 sync();
-</script>
-</body></html>
+</script></body></html>
