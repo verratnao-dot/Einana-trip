@@ -1,0 +1,63 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>もちもの</title><style>*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Maru Gothic ProN",sans-serif;background:#5bc7fa;color:#222}header{background:white;padding:14px 20px;border-bottom:5px solid #f4d339;font-size:28px;font-weight:1000}.wrap{max-width:800px;margin:auto;padding:15px}.tabs{background:#b9edff;border-radius:18px;padding:10px;font-weight:900}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.it{background:#ffffff66;border:3px solid #fff;border-radius:15px;padding:13px;text-align:center;min-height:110px}.ico{font-size:38px}.count{font-size:22px;font-weight:1000}.detail{margin-top:16px;background:#ffe55f;border:4px solid white;border-radius:20px;padding:18px}.rare{display:inline-block;background:white;padding:5px 10px;border-radius:12px;font-weight:1000}a{display:inline-block;margin-top:15px;background:white;color:#111;text-decoration:none;padding:12px 18px;border-radius:15px;font-weight:900}</style>
+<style id="einana-common-menu-style">
+.gameMenuBtn{position:fixed;right:12px;top:max(12px,env(safe-area-inset-top));z-index:9999;width:54px;height:54px;border-radius:50%;border:3px solid #fff;background:#243b82;color:#fff;font-size:25px;box-shadow:0 4px 12px #0007;display:flex;align-items:center;justify-content:center}
+.gameMenuShade{position:fixed;inset:0;background:#0008;z-index:9998;display:none}.gameMenuShade.show{display:block}
+.gameMenuPanel{position:absolute;right:12px;top:78px;width:min(290px,86vw);padding:14px;border:4px solid #fff;border-radius:22px;background:linear-gradient(145deg,#46c8ff,#5379ee);box-shadow:0 8px 28px #0008}
+.gameMenuTitle{font-size:20px;font-weight:1000;color:#fff;margin:2px 5px 10px;text-shadow:2px 2px #28407c}
+.gameMenuGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.gameMenuGrid a{display:block;text-decoration:none;text-align:center;padding:14px 6px;border:3px solid #fff;border-radius:15px;background:#fff6c9;color:#172554;font-weight:1000;box-shadow:0 3px #5a66a5}
+.gameMenuGrid a:nth-child(2){background:#ffd2ec}.gameMenuGrid a:nth-child(3){background:#d7f7ff}.gameMenuGrid a:nth-child(4){background:#d9ffd5}
+.gameMenuClose{width:100%;margin-top:10px;padding:10px;border:0;border-radius:13px;background:#26365f;color:#fff;font-weight:900}
+</style>
+</head><body><header>もちもの</header><div class="wrap"><div class="tabs">すべて　　🎟️ けん　　💎 おもいで　　🔑 その他</div><div class="grid" id="grid"></div><div class="detail" id="detail"><b>アイテムをタップしてね！</b></div><a href="gacha.html">B ガチャにもどる</a></div><script>
+const MONEY='einana-game-money-v1', INV='einana-gacha-inventory-v1';
+const items=[
+ {n:'おやつ券',r:'ノーマル',c:'silver',e:'旅行中のおやつタイムに使える券。'},
+ {n:'写真ポーズ指定券',r:'ノーマル',c:'silver',e:'次の写真のポーズを決められる券。'},
+ {n:'ドリンク券',r:'ノーマル',c:'silver',e:'休憩タイムのドリンク券。'},
+ {n:'食べ歩き券',r:'レア',c:'blue',e:'食べ歩きで好きなものを1つ選べる券。'},
+ {n:'お願いできる券',r:'レア',c:'blue',e:'相手にかわいいお願いを1つできる券。'},
+ {n:'デート先決定券',r:'Sレア',c:'red',e:'次のデート先を決められる特別な券。'},
+ {n:'思い出キーホルダー',r:'Sレア',c:'red',e:'旅行の思い出を残す記念アイテム。'},
+ {n:'スペシャルごほうび券',r:'超レア',c:'gold',e:'2人だけの特別なごほうび券。'},
+ {n:'大阪の夜景キーホルダー',r:'神レア',c:'black',e:'2人で見た夜景の思い出がつまった超特別アイテム。'}
+];
+function inv(){try{return JSON.parse(localStorage.getItem(INV)||'{}')}catch(e){return {}}}
+function saveInv(x){localStorage.setItem(INV,JSON.stringify(x))}
+function money(){return Number(localStorage.getItem(MONEY)||0)}
+function setMoney(x){localStorage.setItem(MONEY,String(x))}
+
+let v=inv(),g=document.getElementById('grid');items.forEach(i=>{let c=v[i.n]||0;if(!c)return;let d=document.createElement('div');d.className='it';d.innerHTML='<div class="ico">'+(i.r==='神レア'?'🌃':i.r==='超レア'?'👑':i.r==='Sレア'?'💎':i.r==='レア'?'🎟️':'🍬')+'</div><b>'+i.n+'</b><div class="count">× '+c+'</div>';d.onclick=()=>document.getElementById('detail').innerHTML='<span class="rare">'+i.r+'</span><h2>'+i.n+'</h2><p>'+i.e+'</p><b>もっているかず　'+c+'</b>';g.appendChild(d)});if(!g.children.length)g.innerHTML='<p>まだアイテムをもってないよ。ガチャを回してGETしよう！</p>';</script>
+<button class="gameMenuBtn" id="gameMenuBtn" aria-label="ゲームメニュー">☰</button>
+<div class="gameMenuShade" id="gameMenuShade"><div class="gameMenuPanel">
+<div class="gameMenuTitle">🎮 ゲームメニュー</div>
+<div class="gameMenuGrid">
+<a href="inventory.html">🎒<br>もちもの</a>
+<a href="gacha.html">🎰<br>ガチャ</a>
+<a href="menu.html">📖<br>にっき選択</a>
+<a href="#" id="mapLink">🗺️<br>この日のMAP</a>
+</div>
+<button class="gameMenuClose" id="gameMenuClose">B もどる</button>
+</div></div>
+<script id="einana-common-menu-script">
+(function(){
+ const shade=document.getElementById('gameMenuShade');
+ document.getElementById('gameMenuBtn').onclick=()=>shade.classList.add('show');
+ document.getElementById('gameMenuClose').onclick=()=>shade.classList.remove('show');
+ shade.addEventListener('click',e=>{if(e.target===shade)shade.classList.remove('show')});
+ const f=location.pathname.split('/').pop();
+ let map='map-kyoto.html';
+ if(f.includes('osaka1'))map='map-osaka1.html';
+ else if(f.includes('osaka2'))map='map-osaka2.html';
+ else if(f.includes('osaka3'))map='map-osaka3.html';
+ else if(f==='gacha.html'||f==='inventory.html'){
+   const last=localStorage.getItem('einana-last-diary')||'kyoto';
+   map='map-'+last+'.html';
+ }
+ document.getElementById('mapLink').href=map;
+ if(/^kyoto|^osaka[123]/.test(f) && !f.startsWith('map-')){
+   localStorage.setItem('einana-last-diary',f.replace('.html',''));
+ }
+})();
+</script>
+</body></html>
