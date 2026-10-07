@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Memory</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;background:linear-gradient(#76d7f5,#35b7e5);min-height:100vh;color:#17212b;padding-bottom:95px}.top{background:white;border-bottom:8px solid #ffe24e;padding:28px 22px 20px}.top h1{margin:0;font-size:38px}.top p{margin:6px 0 0;color:#4382a0;font-weight:800}.wrap{padding:18px}.panel{background:#fff;border:5px solid #fff;border-radius:26px;box-shadow:0 8px 0 #187ba5;padding:18px;margin-bottom:18px}.add{display:block;background:#ffe577;border:4px solid white;border-radius:22px;padding:22px;text-align:center;font-size:22px;font-weight:900;cursor:pointer}.add input{display:none}.hint{text-align:center;font-size:13px;margin-top:9px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.memory{background:#eafaff;border:4px solid white;border-radius:20px;overflow:hidden;box-shadow:0 5px 0 #2187af}.memory img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}.memory .meta{padding:9px;font-weight:900;font-size:13px}.empty{text-align:center;padding:34px 10px;color:#43758a;font-weight:800}.result{display:none;position:fixed;z-index:999;inset:0;background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:20px}.result.show{display:flex}.card{width:min(430px,94vw);background:linear-gradient(#87ec75,#43bb57);border:6px solid white;border-radius:28px;text-align:center;padding:25px 18px;box-shadow:0 10px 30px #0008}.card h2{font-size:30px;margin:0 0 16px}.xp{font-size:44px;font-weight:1000;color:#fff;text-shadow:3px 3px #287b36}.total{font-size:18px;font-weight:900;margin:14px}.ok{border:3px solid #555;background:white;border-radius:20px;padding:10px 38px;font-weight:1000;font-size:18px}.nav{position:fixed;left:0;right:0;bottom:0;background:#145174;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.nav a{background:#fff;color:#17212b;text-decoration:none;text-align:center;padding:13px 4px;border-radius:18px;font-weight:1000;font-size:14px}
+</style>
+</head>
+<body>
+<div class="top"><h1>Memory</h1><p>旅の思い出をのこそう 📸</p></div>
+<div class="wrap">
+ <div class="panel">
+  <label class="add">＋ 写真を追加<input id="picker" type="file" accept="image/*" multiple></label>
+  <div class="hint">新しい写真1枚につき けいけんち +100</div>
+ </div>
+ <div id="grid" class="grid"></div>
+</div>
+<div id="result" class="result"><div class="card"><h2>けいけんち GET！</h2><div id="gain" class="xp">+100 EXP</div><div id="total" class="total"></div><button id="ok" class="ok">A OK</button></div></div>
+<div class="nav"><a href="menu.html">📖 にっき</a><a href="memory.html">📸 Memory</a><a href="gacha.html">🎰 ガチャ</a><a href="money.html">💰 おかね</a></div>
+<script>
+(function(){
+'use strict';
+var EXP_KEY='einana-total-exp-v1', DB='einana-memory-v1', STORE='photos';
+function exp(){var n=parseInt(localStorage.getItem(EXP_KEY)||'0',10);return isNaN(n)?0:n}
+function addExp(n){localStorage.setItem(EXP_KEY,String(exp()+n))}
+function openDB(){return new Promise(function(resolve,reject){var r=indexedDB.open(DB,1);r.onupgradeneeded=function(){var d=r.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'})};r.onsuccess=function(){resolve(r.result)};r.onerror=function(){reject(r.error)}})}
+function all(){return openDB().then(function(db){return new Promise(function(resolve,reject){var r=db.transaction(STORE,'readonly').objectStore(STORE).getAll();r.onsuccess=function(){resolve(r.result||[])};r.onerror=function(){reject(r.error)}})})}
+function save(obj){return openDB().then(function(db){return new Promise(function(resolve,reject){var r=db.transaction(STORE,'readwrite').objectStore(STORE).put(obj);r.onsuccess=function(){resolve()};r.onerror=function(){reject(r.error)}})})}
+function idFor(f){return [f.name,f.size,f.lastModified].join('-')}
+function render(){all().then(function(rows){rows.sort(function(a,b){return b.time-a.time});var g=document.getElementById('grid');g.innerHTML='';if(!rows.length){g.innerHTML='<div class="empty" style="grid-column:1/-1">まだMemoryがないよ！<br>写真を追加してみてね ✨</div>';return}rows.forEach(function(x){var u=URL.createObjectURL(x.blob),d=document.createElement('div');d.className='memory';d.innerHTML='<img alt="Memory"><div class="meta">📸 '+new Date(x.time).toLocaleDateString('ja-JP')+'</div>';d.querySelector('img').src=u;g.appendChild(d)})}).catch(function(){document.getElementById('grid').innerHTML='<div class="empty">Memoryを読み込めませんでした</div>'})}
+document.getElementById('picker').addEventListener('change',function(){var fs=Array.prototype.slice.call(this.files||[]);if(!fs.length)return;all().then(function(rows){var have={};rows.forEach(function(x){have[x.id]=1});var fresh=fs.filter(function(f){return !have[idFor(f)]});if(!fresh.length){alert('この写真はもうMemoryに入ってるよ！');return}return Promise.all(fresh.map(function(f){return save({id:idFor(f),blob:f,time:Date.now()})})).then(function(){var gain=fresh.length*100;addExp(gain);document.getElementById('gain').textContent='+'+gain.toLocaleString()+' EXP';document.getElementById('total').textContent='合計 EXP '+exp().toLocaleString();document.getElementById('result').className='result show';render()})}).catch(function(){alert('写真を保存できなかったよ。Safariの通常タブで試してね！')});this.value=''});
+document.getElementById('ok').onclick=function(){document.getElementById('result').className='result'};render();
+})();
+</script>
+</body></html>
