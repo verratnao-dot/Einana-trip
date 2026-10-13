@@ -1,188 +1,31 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>🌸 京都にっき</title><style>*{box-sizing:border-box}body{margin:0;background:linear-gradient(#172554,#0f172a);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif}.app{max-width:620px;margin:auto;min-height:100vh;padding-bottom:36px}header{padding:20px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-bottom:4px solid #facc15}h1{margin:0 0 5px;font-size:25px}header p{margin:0;color:#dbeafe}.nav{display:flex;gap:7px;margin:14px}.nav a{flex:1;text-align:center;text-decoration:none;color:#fff;background:#334155;padding:11px 6px;border-radius:12px;font-weight:800;font-size:13px}.card{margin:14px;padding:15px;background:#0b1224e8;border:2px solid #60a5fa;border-radius:18px}h2{font-size:18px;color:#fde047}.q{margin:9px 0;border:1px solid #818cf8;border-radius:14px;background:#1e293b;overflow:hidden}summary{cursor:pointer;padding:13px;font-weight:900;list-style:none}.t{color:#67e8f9;font-size:12px;margin-top:3px}.d{padding:0 13px 14px;color:#dbeafe;line-height:1.6;font-size:14px}.m{margin-top:8px;padding:9px;background:#312e81;border-radius:10px}</style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>🌸 京都にっき</title>
 <style>
-.expbar{margin:14px;padding:12px 15px;background:#111c35;border:2px solid #facc15;border-radius:16px;font-weight:900}
-.expbar span{color:#fde047}.memory{cursor:pointer;position:relative;border:2px solid #a78bfa!important}
-.memory:active{transform:scale(.99)}.memory .add{display:inline-block;margin-top:7px;background:#ec4899;color:#fff;padding:7px 11px;border-radius:10px;font-weight:900}
-.memory img{display:block;width:100%;max-height:300px;object-fit:cover;border-radius:12px;margin-top:10px;border:2px solid #fff}
-.memory.done{background:#14532d!important;border-color:#4ade80!important}.memory.done .add{background:#16a34a}
-.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(90px);background:#facc15;color:#111;padding:13px 18px;border-radius:16px;font-weight:1000;z-index:99;opacity:0;transition:.3s;box-shadow:0 6px 22px #0008;white-space:nowrap}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-</style>
-
-<style>
-/* --- GAME v2 --- */
-body{background-color:#1598e8!important;background-size:34px 34px!important;background-attachment:fixed!important}
-body.bg0{background-image:radial-gradient(circle at 8px 8px,#ffffff2b 0 3px,transparent 4px),linear-gradient(#23bdf3,#168ee4)!important}
-body.bg1{background-image:radial-gradient(circle,#ffffff24 0 2px,transparent 3px),linear-gradient(#72e1b7,#18b994)!important}
-body.bg2{background-image:radial-gradient(circle at 8px 8px,#8ea5ff20 0 4px,transparent 5px),linear-gradient(#11134c,#172a78)!important}
-body.bg3{background-image:radial-gradient(circle,#ffffff20 0 2px,transparent 3px),linear-gradient(#ff665e,#5566ee)!important}
-body.bg4{background-image:radial-gradient(circle at 9px 9px,#ffffff25 0 5px,transparent 6px),linear-gradient(#5bd9ff,#169de7)!important}
-body.bg5{background-image:radial-gradient(circle,#ffffff2c 0 3px,transparent 4px),linear-gradient(#ffd852,#ff6e8e)!important}
-body.bg6{background-image:repeating-linear-gradient(90deg,#ffffff12 0 2px,transparent 2px 12px),linear-gradient(#c98a72,#9d5c89)!important}
-.app{background:#07152a42;backdrop-filter:blur(1px)}
-.wallet{margin:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.wallet>div{background:#0b1224e8;border:2px solid #facc15;border-radius:15px;padding:10px;text-align:center;font-weight:900}
-.wallet small{display:block;color:#dbeafe}.wallet strong{display:block;color:#ffe34f;font-size:20px;text-shadow:2px 2px 0 #5b3600}
-.moneybox{margin-top:9px;padding:10px;background:#172554;border-radius:11px;border:1px solid #60a5fa}
-.moneyrow{display:flex;gap:7px;margin-top:7px}.moneyrow input{min-width:0;flex:1;border:0;border-radius:9px;padding:10px;font-size:16px;font-weight:800}.moneyrow button{border:0;border-radius:9px;background:#facc15;color:#241600;padding:8px 12px;font-weight:1000}
-.result{position:fixed;inset:0;background:#0009;z-index:200;display:none;align-items:center;justify-content:center;padding:18px}
-.result.show{display:flex}.resultbox{width:min(560px,100%);background:linear-gradient(#57dd4d,#a8ef73);border:5px solid #fff;border-radius:24px;padding:20px;color:#173018;box-shadow:0 12px 35px #0008;position:relative;overflow:hidden}
-.resultbox:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,#fff5 0 3px,transparent 4px);background-size:31px 31px;opacity:.35}
-.resultbox>*{position:relative}.rtitle{font-weight:1000;font-size:23px;text-shadow:2px 2px 0 #fff;margin-bottom:14px}.rline{display:flex;justify-content:space-between;align-items:end;border-bottom:2px dashed #fff8;padding:10px 2px;font-weight:1000}.rline b{font-size:29px;color:#ffe33e;-webkit-text-stroke:1px #4a2600;text-shadow:2px 2px 0 #fff}.rok{display:block;margin:18px auto 0;padding:9px 32px;border:3px solid #555;border-radius:999px;background:#fff;font-weight:1000;font-size:16px}
-</style>
-
-<style id="einana-common-menu-style">
-.gameMenuBtn{position:fixed;right:12px;top:max(12px,env(safe-area-inset-top));z-index:9999;width:54px;height:54px;border-radius:50%;border:3px solid #fff;background:#243b82;color:#fff;font-size:25px;box-shadow:0 4px 12px #0007;display:flex;align-items:center;justify-content:center}
-.gameMenuShade{position:fixed;inset:0;background:#0008;z-index:9998;display:none}.gameMenuShade.show{display:block}
-.gameMenuPanel{position:absolute;right:12px;top:78px;width:min(290px,86vw);padding:14px;border:4px solid #fff;border-radius:22px;background:linear-gradient(145deg,#46c8ff,#5379ee);box-shadow:0 8px 28px #0008}
-.gameMenuTitle{font-size:20px;font-weight:1000;color:#fff;margin:2px 5px 10px;text-shadow:2px 2px #28407c}
-.gameMenuGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.gameMenuGrid a{display:block;text-decoration:none;text-align:center;padding:14px 6px;border:3px solid #fff;border-radius:15px;background:#fff6c9;color:#172554;font-weight:1000;box-shadow:0 3px #5a66a5}
-.gameMenuGrid a:nth-child(2){background:#ffd2ec}.gameMenuGrid a:nth-child(3){background:#d7f7ff}.gameMenuGrid a:nth-child(4){background:#d9ffd5}
-.gameMenuClose{width:100%;margin-top:10px;padding:10px;border:0;border-radius:13px;background:#26365f;color:#fff;font-weight:900}
-</style>
-</head><body><div class="app"><header><h1>🌸 京都にっき</h1><p>10/15〜10/16｜京都を1日で攻略</p></header><div class="nav"><a href="menu.html">← にっき</a><a href="map-kyoto.html">🗺️ この日のMAP</a><a href="index.html">タイトル</a></div><section class="card"><h2>🎮 クエスト一覧</h2><details class="q"><summary>⛴️ 東予港 → 大阪南港<div class="t">10/15 22:00 → 10/16 6:00</div></summary><div class="d">フェリー船内泊で旅スタート！<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details><details class="q"><summary>⛩️ 伏見稲荷大社<div class="t">8:00〜8:45</div></summary><div class="d">千本鳥居から京都クエスト開始！<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details><details class="q"><summary>🎋 嵐山・渡月橋<div class="t">9:45〜10:45</div></summary><div class="d">朝の嵐山と渡月橋を散策。<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details><details class="q"><summary>✨ 金閣寺<div class="t">11:30〜12:15</div></summary><div class="d">金色に輝く金閣寺を攻略。<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details><details class="q"><summary>💍 Owl Labo<div class="t">13:00〜14:15</div></summary><div class="d">2人のオリジナルリング作り♡<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details><details class="q"><summary>🌸 清水寺<div class="t">14:30〜15:15</div></summary><div class="d">清水の舞台と京都らしい景色を満喫。<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details><details class="q"><summary>🍡 産寧坂・二寧坂<div class="t">15:15〜16:15</div></summary><div class="d">食べ歩き＆京都の街並みを散策。<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details><details class="q"><summary>🗼 京都タワー<div class="t">16:45〜17:30</div></summary><div class="d">京都の街を一望！<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details><details class="q"><summary>🏨 和泉屋旅館<div class="t">17:45頃</div></summary><div class="d">チェックインして京都ステージCOMPLETE！<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details></section></div><div id="toast" class="toast"></div>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;color:#263354;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif;background:#49b9e6;background-image:radial-gradient(#fff5 2px,transparent 3px),linear-gradient(#85e1fb,#238cda);background-size:25px 25px,100% 100%;background-attachment:fixed}button,input{font:inherit}button{cursor:pointer}.app{max-width:620px;margin:auto;min-height:100vh;padding-bottom:110px;background:#ffffff13}.top{position:relative;padding:28px 20px 22px;background:linear-gradient(160deg,#ffec83,#ffc348 55%,#ff9d4a);border-bottom:7px solid #fff;border-radius:0 0 28px 28px;box-shadow:0 7px 0 #d58131,0 12px 22px #124d7970}.top:before{content:'✿ ✿ ✿';position:absolute;right:15px;bottom:13px;font-size:30px;color:#fff8;letter-spacing:8px}.eyebrow{display:inline-block;background:#fff;border:3px solid #8d5428;border-radius:100px;padding:4px 14px;font-weight:1000;color:#7a4228;font-size:12px}.top h1{position:relative;margin:11px 0 4px;font-size:34px;color:#fff;text-shadow:3px 3px 0 #ac522f,-2px -2px 0 #ac522f,2px -2px 0 #ac522f,-2px 2px 0 #ac522f;letter-spacing:1px}.top p{position:relative;margin:0;font-size:13px;font-weight:900;color:#704529}.nav{display:flex;gap:8px;padding:19px 12px 6px}.nav a{flex:1;min-width:0;text-decoration:none;text-align:center;color:#243d62;background:#fff7d7;border:3px solid white;border-radius:15px;padding:11px 3px;font-size:12px;font-weight:1000;box-shadow:0 5px 0 #4a8db1}.status{margin:17px 13px 14px;background:linear-gradient(#fff8dc,#fff0a9);border:5px solid #fff;border-radius:23px;padding:14px;box-shadow:0 6px 0 #257caa,0 9px 18px #15557d45}.statushead{display:flex;align-items:center;gap:10px}.avatars{font-size:27px;background:#fff;border:3px solid #ffb64e;border-radius:16px;padding:7px}.statushead strong{font-size:19px;color:#7b4522}.statushead small{display:block;font-size:11px;color:#805a3a}.meter{height:17px;background:#e5d5b2;border:3px solid #95683e;border-radius:20px;overflow:hidden;margin:10px 0 3px}.meter>div{height:100%;width:0;background:linear-gradient(90deg,#68d753,#ffda3b);transition:width .3s}.level{display:flex;justify-content:space-between;font-size:12px;font-weight:1000}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}.stat{background:#fff;border:3px solid #ffcc63;border-radius:14px;padding:9px 7px;text-align:center}.stat small{display:block;font-size:11px;font-weight:900}.stat b{font-size:22px;color:#e27b26;text-shadow:1px 1px #ffe2b0}.stat.wide{grid-column:1/-1}.panel{margin:20px 12px;padding:12px;background:#21477f;border:5px solid #fff;border-radius:27px;box-shadow:0 7px 0 #1c6395,0 12px 24px #153b6770}.paneltitle{display:flex;align-items:center;gap:9px;color:#fff6b2;font-size:21px;font-weight:1000;padding:5px 8px 14px;text-shadow:2px 2px #17355c}.paneltitle span{font-size:27px}.quest{margin:0 0 11px;background:#fff8dc;border:4px solid #f4cb75;border-radius:19px;overflow:hidden;box-shadow:0 4px 0 #ad782e}.quest[open]{background:#fffdf3;border-color:#ffb944}.quest summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 10px}.quest summary::-webkit-details-marker{display:none}.qicon{width:44px;height:44px;flex:none;display:grid;place-items:center;background:linear-gradient(#fff,#b9e7fa);border:3px solid #76b8d8;border-radius:14px;font-size:23px}.qinfo{flex:1;min-width:0}.qname{font-size:15px;font-weight:1000;color:#344064}.qtime{color:#1687b3;font-size:12px;font-weight:900;margin-top:4px}.arrow{font-size:20px;color:#db8631}.quest[open] .arrow{transform:rotate(90deg)}.qbody{padding:2px 12px 15px}.desc{font-size:13px;line-height:1.65;font-weight:700;margin:7px 2px 12px}.mission,.memory,.moneybox{border-radius:16px;padding:12px;margin:10px 0;border:3px solid #b2a3e9;background:#eeebff}.mission strong,.memory strong,.moneybox strong{display:block;color:#5446a1;margin-bottom:6px}.mission p,.memory p{font-size:13px;margin:4px 0 8px}.memory{border-color:#f5a9d4;background:#fff0f7}.memory.done{background:#e6ffe9;border-color:#63cf80}.memory img{width:100%;max-height:280px;object-fit:cover;border:3px solid white;border-radius:13px;margin-top:10px}.add{display:inline-block;background:#ef62a9;color:white;padding:10px 14px;border:0;border-radius:12px;font-weight:1000}.done .add{background:#29a96a}.moneybox{background:#e9f8ff;border-color:#89c7e9}.moneyrow{display:flex;gap:7px}.moneyrow input{flex:1;min-width:0;background:#fff;border:2px solid #8abbd9;border-radius:12px;padding:10px;font-size:16px}.moneyrow button{background:#ffce4e;border:2px solid #b98428;border-radius:12px;padding:9px 15px;font-weight:1000;color:#69441c}.bottom{position:fixed;bottom:0;left:0;right:0;z-index:30;background:#24467d;border-top:5px solid #fff;display:flex;gap:7px;padding:9px 9px calc(9px + env(safe-area-inset-bottom))}.bottom a{flex:1;text-align:center;background:#fff9d8;border:3px solid #fff;border-radius:13px;padding:10px 2px;color:#2e4666;text-decoration:none;font-size:12px;font-weight:1000}.menuBtn{position:fixed;right:12px;top:max(13px,env(safe-area-inset-top));z-index:101;width:58px;height:58px;border-radius:50%;border:4px solid white;background:#32529a;color:white;font-size:27px;box-shadow:0 5px 0 #172e64}.shade{position:fixed;inset:0;background:#0009;z-index:100;display:none}.shade.show{display:block}.menuPanel{position:absolute;right:12px;top:80px;width:min(310px,90vw);padding:15px;background:#5cc5f6;border:5px solid white;border-radius:23px;box-shadow:0 8px 0 #24669a}.menuPanel h2{margin:0 0 12px;color:#fff;text-shadow:2px 2px #23568b}.menuGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.menuGrid a{background:#fff8cf;border:3px solid white;border-radius:15px;text-align:center;padding:15px 5px;text-decoration:none;font-weight:1000;color:#263f63}.close{display:block;width:100%;margin-top:12px;padding:10px;border:0;border-radius:13px;background:#28477d;color:white;font-weight:1000}.overlay{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:200}.overlay.show{display:flex}.result{width:min(450px,100%);background:linear-gradient(#adf37d,#4bce80);border:6px solid #fff;border-radius:27px;padding:18px;color:#285235;box-shadow:0 10px 0 #21866a}.result h2{text-align:center;font-size:25px;margin:0 0 15px;color:#fff;text-shadow:2px 2px #28845c}.resultline{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:2px dashed #fff;font-weight:1000}.resultline b{font-size:23px;color:#fff4a0;text-shadow:2px 2px #5d8833}.result button{display:block;margin:20px auto 0;padding:10px 35px;border:4px solid #fff;border-radius:30px;background:#ffce54;font-weight:1000;color:#5b4a28}.toast{position:fixed;bottom:95px;left:50%;transform:translateX(-50%);background:#ffdc64;border:3px solid white;padding:12px;border-radius:15px;font-weight:1000;display:none;z-index:250;white-space:nowrap;box-shadow:0 5px 15px #0005}.toast.show{display:block}@media(max-width:380px){.top h1{font-size:30px}.qname{font-size:14px}.panel{margin-left:8px;margin-right:8px}.stat b{font-size:20px}}
+</style></head><body><div class="app"><header class="top"><span class="eyebrow">えいなな旅行 ✦ にっき１</span><h1>🌸 京都のぼうけん</h1><p>10/15〜10/16　京都ステージ</p></header><nav class="nav"><a href="menu.html">◀ にっき</a><a href="map-kyoto.html">🗺️ MAP</a><a href="index.html">🏠 タイトル</a></nav><section class="status"><div class="statushead"><span class="avatars">👦🏻👧🏻</span><div><strong>えいと ＆ ななこ</strong><small>京都のたびを ぼうけん中！</small></div></div><div class="meter"><div id="xpFill"></div></div><div class="level"><span id="level">レベル 1</span><span id="levelProgress">つぎまで 500 EXP</span></div><div class="stats"><div class="stat"><small>⭐ けいけんち</small><b id="exp">0</b></div><div class="stat"><small>💰 たびマネー</small><b id="coin">0P</b></div><div class="stat wide"><small>💴 つかったおかね</small><b id="spent">0円</b></div></div></section><section class="panel"><div class="paneltitle"><span>📜</span> クエストをえらぶ</div><div id="quests"></div></section></div>
+<nav class="bottom"><a href="menu.html">📖 にっき</a><a href="inventory.html">🎒 もちもの</a><a href="gacha.html">🎰 ガチャ</a><a href="money.html">💰 おかね</a></nav>
+<button class="menuBtn" id="menuBtn" aria-label="ゲームメニュー">☰</button><div class="shade" id="shade"><div class="menuPanel"><h2>🎮 ゲームメニュー</h2><div class="menuGrid"><a href="inventory.html">🎒<br>もちもの</a><a href="gacha.html">🎰<br>ガチャ</a><a href="menu.html">📖<br>にっき選択</a><a href="map-kyoto.html">🗺️<br>この日のMAP</a></div><button class="close" id="close">B もどる</button></div></div>
+<div class="overlay" id="overlay"><div class="result"><h2>✨ クエストけっか ✨</h2><div class="resultline"><span>⭐ けいけんち</span><b id="resultXp">＋0</b></div><div class="resultline"><span>💴 つかったおかね</span><b id="resultSpent">0円</b></div><div class="resultline"><span>💰 たびマネー</span><b id="resultCoin">＋0P</b></div><button id="resultOk">A けってい</button></div></div><div class="toast" id="toast"></div>
 <script>
-(function(){
- const PAGE = document.title;
- const PREFIX='einana-memory-v1:';
- const EXPKEY='einana-total-exp-v1';
- const dbName='einana-memory-images-v1';
- let db;
- const req=indexedDB.open(dbName,1);
- req.onupgradeneeded=e=>{ e.target.result.createObjectStore('photos'); };
- req.onsuccess=e=>{db=e.target.result; init();};
- req.onerror=()=>init();
-
- function key(i){return PREFIX+PAGE+':'+i}
- function exp(){return Number(localStorage.getItem(EXPKEY)||0)}
- function setExp(v){localStorage.setItem(EXPKEY,String(v)); document.querySelectorAll('.expnum').forEach(x=>x.textContent=v)}
- function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
- function savePhoto(k,data,cb){
-   if(!db){cb(false);return}
-   const tx=db.transaction('photos','readwrite'); tx.objectStore('photos').put(data,k);
-   tx.oncomplete=()=>cb(true); tx.onerror=()=>cb(false);
- }
- function getPhoto(k,cb){
-   if(!db){cb(null);return}
-   const r=db.transaction('photos').objectStore('photos').get(k);
-   r.onsuccess=()=>cb(r.result||null); r.onerror=()=>cb(null);
- }
- function compress(file,cb){
-   const reader=new FileReader();
-   reader.onload=()=>{
-     const im=new Image();
-     im.onload=()=>{
-       let w=im.width,h=im.height,max=1200;
-       if(Math.max(w,h)>max){const s=max/Math.max(w,h);w*=s;h*=s}
-       const c=document.createElement('canvas');c.width=w;c.height=h;
-       c.getContext('2d').drawImage(im,0,0,w,h);
-       cb(c.toDataURL('image/jpeg',.78));
-     }; im.src=reader.result;
-   }; reader.readAsDataURL(file);
- }
- function init(){
-   const qs=[...document.querySelectorAll('.q')];
-   const bar=document.createElement('div');bar.className='expbar';bar.innerHTML='⭐ TOTAL EXP：<span class="expnum">'+exp()+'</span> EXP';
-   document.querySelector('.nav').after(bar);
-   qs.forEach((q,i)=>{
-     const ms=[...q.querySelectorAll('.m')];
-     const m=ms.find(x=>x.textContent.includes('MEMORY')); if(!m)return;
-     const k=key(i); m.classList.add('memory'); m.innerHTML='<b>📸 MEMORY</b><br><span class="status">2人の思い出写真をGET</span><br><span class="add">＋ 写真を追加</span><input type="file" accept="image/*" hidden>';
-     const inp=m.querySelector('input');
-     m.addEventListener('click',e=>{if(e.target.tagName!=='IMG')inp.click()});
-     inp.addEventListener('click',e=>e.stopPropagation());
-     inp.addEventListener('change',()=>{
-       const f=inp.files&&inp.files[0]; if(!f)return;
-       compress(f,data=>savePhoto(k,data,ok=>{
-         if(!ok){toast('写真を保存できませんでした');return}
-         let img=m.querySelector('img'); if(!img){img=document.createElement('img');m.appendChild(img)}
-         img.src=data;m.classList.add('done');m.querySelector('.status').textContent='おもいでを記録した！';
-         if(!localStorage.getItem(k+':xp')){localStorage.setItem(k+':xp','1');setExp(exp()+100);toast('✨ おもいでGET！ EXP +100');}
-         else toast('📸 写真を更新したよ！');
-       }));
-     });
-     getPhoto(k,data=>{if(data){const img=document.createElement('img');img.src=data;m.appendChild(img);m.classList.add('done');m.querySelector('.status').textContent='おもいで記録済み ✓';}})
-   });
- }
+(function(){'use strict';
+var QUESTS=[['⛴️','東予港 → 大阪南港','10/15 22:00 → 10/16 6:00','フェリー船内泊で旅スタート！'],['⛩️','伏見稲荷大社','8:00〜8:45','千本鳥居から京都クエスト開始！'],['🎋','嵐山・渡月橋','9:45〜10:45','朝の嵐山と渡月橋を散策。'],['✨','金閣寺','11:30〜12:15','金色に輝く金閣寺を攻略。'],['💍','Owl Labo','13:00〜14:15','2人のオリジナルリング作り♡'],['🌸','清水寺','14:30〜15:15','清水の舞台と京都らしい景色を満喫。'],['🍡','産寧坂・二寧坂','15:15〜16:15','食べ歩き＆京都の街並みを散策。'],['🗼','京都タワー','16:45〜17:30','京都の街を一望！'],['🏨','和泉屋旅館','17:45頃','チェックインして京都ステージCOMPLETE！']];
+var EXP='einana-total-exp-v1',COIN='einana-game-money-v1',SPENT='einana-spent-total-v1',PREFIX='einana-memory-v1:🌸 京都にっき:',DB='einana-memory-images-v1',db=null;
+function el(id){return document.getElementById(id)}function num(key){return Math.max(0,Number(localStorage.getItem(key)||0)||0)}function yen(n){return Number(n).toLocaleString('ja-JP')}function set(key,n){localStorage.setItem(key,String(n))}
+// Old Kyoto diary used different keys. Import only if the new shared key is absent.
+if(localStorage.getItem(COIN)===null&&localStorage.getItem('einana-coin-v1')!==null)set(COIN,num('einana-coin-v1'));
+if(localStorage.getItem(SPENT)===null&&localStorage.getItem('einana-spend-v1')!==null)set(SPENT,num('einana-spend-v1'));
+function refresh(){var x=num(EXP),lv=Math.floor(x/500)+1,within=x%500;el('exp').textContent=yen(x);el('coin').textContent=yen(num(COIN))+'P';el('spent').textContent=yen(num(SPENT))+'円';el('level').textContent='レベル '+lv;el('levelProgress').textContent='つぎまで '+(500-within)+' EXP';el('xpFill').style.width=(within/500*100)+'%'}
+function result(x,m){el('resultXp').textContent='＋'+yen(x);el('resultSpent').textContent=yen(m)+'円';el('resultCoin').textContent='＋'+yen(m)+'P';el('overlay').classList.add('show')}
+function toast(t){el('toast').textContent=t;el('toast').classList.add('show');setTimeout(function(){el('toast').classList.remove('show')},2100)}
+var root=el('quests');QUESTS.forEach(function(q,i){var d=document.createElement('details');d.className='quest';d.innerHTML='<summary><span class="qicon">'+q[0]+'</span><span class="qinfo"><span class="qname">'+q[1]+'</span><div class="qtime">'+q[2]+'</div></span><span class="arrow">▶</span></summary><div class="qbody"><p class="desc">'+q[3]+'</p><div class="mission"><strong>🎯 MISSION</strong><p>このクエストを攻略する！</p></div><div class="memory"><strong>📸 MEMORY</strong><p class="memstatus">2人の思い出写真をGET</p><button type="button" class="add">＋ 写真を追加</button><input type="file" accept="image/*" hidden></div><div class="moneybox"><strong>💴 つかったおかね</strong><div class="moneyrow"><input inputmode="numeric" type="text" placeholder="例：3500"><button type="button">記録</button></div></div></div>';root.appendChild(d);
+var mem=d.querySelector('.memory'),file=d.querySelector('input[type=file]'),key=PREFIX+i;
+d.querySelector('.add').onclick=function(){file.click()};file.onchange=function(){var f=file.files&&file.files[0];if(!f)return;compress(f,function(data){savePhoto(key,data,function(ok){if(!ok){toast('写真を保存できませんでした');return}showPhoto(mem,data);if(!localStorage.getItem(key+':xp')){localStorage.setItem(key+':xp','1');set(EXP,num(EXP)+100);refresh();result(100,0)}else toast('📸 写真を更新したよ！')})})};
+d.querySelector('.moneyrow button').onclick=function(){var input=d.querySelector('.moneyrow input'),n=parseInt(input.value.replace(/[^0-9]/g,''),10);if(!n||n<1){toast('金額を入力してね');return}set(SPENT,num(SPENT)+n);set(COIN,num(COIN)+n);var log=[];try{log=JSON.parse(localStorage.getItem('einana-spent-log-v1')||'[]');if(!Array.isArray(log))log=[]}catch(e){}log.push({date:new Date().toISOString(),amount:n,place:q[1]});localStorage.setItem('einana-spent-log-v1',JSON.stringify(log));input.value='';refresh();result(0,n)};
+getPhoto(key,function(data){if(data)showPhoto(mem,data)})});
+function showPhoto(mem,data){mem.classList.add('done');mem.querySelector('.memstatus').textContent='おもいで記録済み ✓';var img=mem.querySelector('img');if(!img){img=document.createElement('img');mem.appendChild(img)}img.src=data}
+function savePhoto(k,data,cb){if(!db){cb(false);return}var tx=db.transaction('photos','readwrite');tx.objectStore('photos').put(data,k);tx.oncomplete=function(){cb(true)};tx.onerror=function(){cb(false)}}
+function getPhoto(k,cb){if(!db){cb(null);return}var r=db.transaction('photos').objectStore('photos').get(k);r.onsuccess=function(){cb(r.result||null)};r.onerror=function(){cb(null)}}
+function compress(file,cb){var reader=new FileReader();reader.onload=function(){var im=new Image();im.onload=function(){var w=im.width,h=im.height,s=Math.min(1,1200/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.round(w*s);c.height=Math.round(h*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.78))};im.onerror=function(){toast('写真を読み込めませんでした')};im.src=reader.result};reader.readAsDataURL(file)}
+try{var req=indexedDB.open(DB,1);req.onupgradeneeded=function(e){if(!e.target.result.objectStoreNames.contains('photos'))e.target.result.createObjectStore('photos')};req.onsuccess=function(e){db=e.target.result;QUESTS.forEach(function(q,i){getPhoto(PREFIX+i,function(data){if(data)showPhoto(root.children[i].querySelector('.memory'),data)})})}}catch(e){}
+el('resultOk').onclick=function(){el('overlay').classList.remove('show')};el('menuBtn').onclick=function(){el('shade').classList.add('show')};el('close').onclick=function(){el('shade').classList.remove('show')};el('shade').onclick=function(e){if(e.target===el('shade'))el('shade').classList.remove('show')};localStorage.setItem('einana-last-diary','kyoto');refresh();window.addEventListener('pageshow',refresh);
 })();
-</script>
-<div id="gameResult" class="result"><div class="resultbox">
-<div class="rtitle">🏆 クエストけっか</div>
-<div class="rline"><span>けいけんち</span><b class="rxp">＋0</b></div>
-<div class="rline"><span>つかったおかね</span><b class="rmoney">0円</b></div>
-<div class="rline"><span>たびマネー</span><b class="rcoin">＋0P</b></div>
-<button id="resultOK" class="rok">OK</button></div></div>
-<script>
-(function(){
- // A different game-like patterned background is chosen once for each diary.
- const pageKey='einana-bg:'+document.title;
- let bg=localStorage.getItem(pageKey);
- if(bg===null){bg=String(Math.floor(Math.random()*7));localStorage.setItem(pageKey,bg)}
- document.body.classList.add('bg'+bg);
-
- const EXPKEY='einana-total-exp-v1', SPEND='einana-spend-v1', COIN='einana-coin-v1';
- const yen=n=>Number(n||0).toLocaleString('ja-JP');
- const nav=document.querySelector('.nav');
- const w=document.createElement('div');w.className='wallet';
- w.innerHTML='<div><small>⭐ けいけんち</small><strong class="vexp">'+yen(localStorage.getItem(EXPKEY))+'</strong></div><div><small>💰 たびマネー</small><strong class="vcoin">'+yen(localStorage.getItem(COIN))+'P</strong></div><div style="grid-column:1/-1"><small>💴 つかったおかね</small><strong class="vspend">'+yen(localStorage.getItem(SPEND))+'円</strong></div>';
- nav.after(w);
- function refresh(){document.querySelectorAll('.vexp').forEach(e=>e.textContent=yen(localStorage.getItem(EXPKEY)));document.querySelectorAll('.vcoin').forEach(e=>e.textContent=yen(localStorage.getItem(COIN))+'P');document.querySelectorAll('.vspend').forEach(e=>e.textContent=yen(localStorage.getItem(SPEND))+'円')}
- function result(xp,money){const r=document.getElementById('gameResult');r.querySelector('.rxp').textContent='＋'+yen(xp);r.querySelector('.rmoney').textContent=yen(money)+'円';r.querySelector('.rcoin').textContent='＋'+yen(money)+'P';r.classList.add('show')}
- document.getElementById('resultOK').onclick=()=>document.getElementById('gameResult').classList.remove('show');
-
- document.querySelectorAll('.q').forEach((q,i)=>{
-   const d=q.querySelector('.d'); if(!d)return;
-   const box=document.createElement('div');box.className='moneybox';
-   box.innerHTML='<b>💴 つかったおかね</b><div class="moneyrow"><input inputmode="numeric" pattern="[0-9]*" placeholder="例：3500"><button>記録</button></div>';
-   d.appendChild(box);
-   box.querySelector('button').onclick=()=>{
-     const input=box.querySelector('input');const n=parseInt(String(input.value).replace(/[^0-9]/g,''),10);
-     if(!n||n<1)return;
-     localStorage.setItem(SPEND,String(Number(localStorage.getItem(SPEND)||0)+n));
-     localStorage.setItem(COIN,String(Number(localStorage.getItem(COIN)||0)+n));
-     refresh();result(0,n);input.value='';
-   };
- });
- // Hook the existing MEMORY toast so XP gain also opens the result screen.
- const obs=new MutationObserver(()=>{
-   const t=document.getElementById('toast');
-   if(t&&t.classList.contains('show')&&t.textContent.includes('EXP +100')){refresh();result(100,0)}
- });
- const toast=document.getElementById('toast');if(toast)obs.observe(toast,{attributes:true,childList:true,subtree:true});
-})();
-</script>
-
-<button class="gameMenuBtn" id="gameMenuBtn" aria-label="ゲームメニュー">☰</button>
-<div class="gameMenuShade" id="gameMenuShade"><div class="gameMenuPanel">
-<div class="gameMenuTitle">🎮 ゲームメニュー</div>
-<div class="gameMenuGrid">
-<a href="inventory.html">🎒<br>もちもの</a>
-<a href="gacha.html">🎰<br>ガチャ</a>
-<a href="menu.html">📖<br>にっき選択</a>
-<a href="#" id="mapLink">🗺️<br>この日のMAP</a>
-</div>
-<button class="gameMenuClose" id="gameMenuClose">B もどる</button>
-</div></div>
-<script id="einana-common-menu-script">
-(function(){
- const shade=document.getElementById('gameMenuShade');
- document.getElementById('gameMenuBtn').onclick=()=>shade.classList.add('show');
- document.getElementById('gameMenuClose').onclick=()=>shade.classList.remove('show');
- shade.addEventListener('click',e=>{if(e.target===shade)shade.classList.remove('show')});
- const f=location.pathname.split('/').pop();
- let map='map-kyoto.html';
- if(f.includes('osaka1'))map='map-osaka1.html';
- else if(f.includes('osaka2'))map='map-osaka2.html';
- else if(f.includes('osaka3'))map='map-osaka3.html';
- else if(f==='gacha.html'||f==='inventory.html'){
-   const last=localStorage.getItem('einana-last-diary')||'kyoto';
-   map='map-'+last+'.html';
- }
- document.getElementById('mapLink').href=map;
- if(/^kyoto|^osaka[123]/.test(f) && !f.startsWith('map-')){
-   localStorage.setItem('einana-last-diary',f.replace('.html',''));
- }
-})();
-</script>
-</body></html>
+</script></body></html>
