@@ -1,1 +1,188 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>🌎 大阪2にっき</title><style>*{box-sizing:border-box}body{margin:0;background:linear-gradient(#172554,#0f172a);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif}.app{max-width:620px;margin:auto;min-height:100vh;padding-bottom:36px}header{padding:20px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-bottom:4px solid #facc15}h1{margin:0 0 5px;font-size:25px}header p{margin:0;color:#dbeafe}.nav{display:flex;gap:7px;margin:14px}.nav a{flex:1;text-align:center;text-decoration:none;color:#fff;background:#334155;padding:11px 6px;border-radius:12px;font-weight:800;font-size:13px}.card{margin:14px;padding:15px;background:#0b1224e8;border:2px solid #60a5fa;border-radius:18px}h2{font-size:18px;color:#fde047}.q{margin:9px 0;border:1px solid #818cf8;border-radius:14px;background:#1e293b;overflow:hidden}summary{cursor:pointer;padding:13px;font-weight:900;list-style:none}.t{color:#67e8f9;font-size:12px;margin-top:3px}.d{padding:0 13px 14px;color:#dbeafe;line-height:1.6;font-size:14px}.m{margin-top:8px;padding:9px;background:#312e81;border-radius:10px}</style></head><body><div class="app"><header><h1>🌎 大阪2にっき</h1><p>10/18｜USJ 1DAY</p></header><div class="nav"><a href="menu.html">← にっき</a><a href="map-osaka2.html">🗺️ この日のMAP</a><a href="index.html">タイトル</a></div><section class="card"><h2>🎮 クエスト一覧</h2><details class="q"><summary>🌎 USJ<div class="t">10/18 7:00頃〜22:00頃</div></summary><div class="d">ユニバーサル・スタジオ・ジャパンを丸1日遊び尽くす！<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details></section></div></body></html>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>🌎 大阪2にっき</title><style>*{box-sizing:border-box}body{margin:0;background:linear-gradient(#172554,#0f172a);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif}.app{max-width:620px;margin:auto;min-height:100vh;padding-bottom:36px}header{padding:20px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-bottom:4px solid #facc15}h1{margin:0 0 5px;font-size:25px}header p{margin:0;color:#dbeafe}.nav{display:flex;gap:7px;margin:14px}.nav a{flex:1;text-align:center;text-decoration:none;color:#fff;background:#334155;padding:11px 6px;border-radius:12px;font-weight:800;font-size:13px}.card{margin:14px;padding:15px;background:#0b1224e8;border:2px solid #60a5fa;border-radius:18px}h2{font-size:18px;color:#fde047}.q{margin:9px 0;border:1px solid #818cf8;border-radius:14px;background:#1e293b;overflow:hidden}summary{cursor:pointer;padding:13px;font-weight:900;list-style:none}.t{color:#67e8f9;font-size:12px;margin-top:3px}.d{padding:0 13px 14px;color:#dbeafe;line-height:1.6;font-size:14px}.m{margin-top:8px;padding:9px;background:#312e81;border-radius:10px}</style>
+<style>
+.expbar{margin:14px;padding:12px 15px;background:#111c35;border:2px solid #facc15;border-radius:16px;font-weight:900}
+.expbar span{color:#fde047}.memory{cursor:pointer;position:relative;border:2px solid #a78bfa!important}
+.memory:active{transform:scale(.99)}.memory .add{display:inline-block;margin-top:7px;background:#ec4899;color:#fff;padding:7px 11px;border-radius:10px;font-weight:900}
+.memory img{display:block;width:100%;max-height:300px;object-fit:cover;border-radius:12px;margin-top:10px;border:2px solid #fff}
+.memory.done{background:#14532d!important;border-color:#4ade80!important}.memory.done .add{background:#16a34a}
+.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(90px);background:#facc15;color:#111;padding:13px 18px;border-radius:16px;font-weight:1000;z-index:99;opacity:0;transition:.3s;box-shadow:0 6px 22px #0008;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+
+<style>
+/* --- GAME v2 --- */
+body{background-color:#1598e8!important;background-size:34px 34px!important;background-attachment:fixed!important}
+body.bg0{background-image:radial-gradient(circle at 8px 8px,#ffffff2b 0 3px,transparent 4px),linear-gradient(#23bdf3,#168ee4)!important}
+body.bg1{background-image:radial-gradient(circle,#ffffff24 0 2px,transparent 3px),linear-gradient(#72e1b7,#18b994)!important}
+body.bg2{background-image:radial-gradient(circle at 8px 8px,#8ea5ff20 0 4px,transparent 5px),linear-gradient(#11134c,#172a78)!important}
+body.bg3{background-image:radial-gradient(circle,#ffffff20 0 2px,transparent 3px),linear-gradient(#ff665e,#5566ee)!important}
+body.bg4{background-image:radial-gradient(circle at 9px 9px,#ffffff25 0 5px,transparent 6px),linear-gradient(#5bd9ff,#169de7)!important}
+body.bg5{background-image:radial-gradient(circle,#ffffff2c 0 3px,transparent 4px),linear-gradient(#ffd852,#ff6e8e)!important}
+body.bg6{background-image:repeating-linear-gradient(90deg,#ffffff12 0 2px,transparent 2px 12px),linear-gradient(#c98a72,#9d5c89)!important}
+.app{background:#07152a42;backdrop-filter:blur(1px)}
+.wallet{margin:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wallet>div{background:#0b1224e8;border:2px solid #facc15;border-radius:15px;padding:10px;text-align:center;font-weight:900}
+.wallet small{display:block;color:#dbeafe}.wallet strong{display:block;color:#ffe34f;font-size:20px;text-shadow:2px 2px 0 #5b3600}
+.moneybox{margin-top:9px;padding:10px;background:#172554;border-radius:11px;border:1px solid #60a5fa}
+.moneyrow{display:flex;gap:7px;margin-top:7px}.moneyrow input{min-width:0;flex:1;border:0;border-radius:9px;padding:10px;font-size:16px;font-weight:800}.moneyrow button{border:0;border-radius:9px;background:#facc15;color:#241600;padding:8px 12px;font-weight:1000}
+.result{position:fixed;inset:0;background:#0009;z-index:200;display:none;align-items:center;justify-content:center;padding:18px}
+.result.show{display:flex}.resultbox{width:min(560px,100%);background:linear-gradient(#57dd4d,#a8ef73);border:5px solid #fff;border-radius:24px;padding:20px;color:#173018;box-shadow:0 12px 35px #0008;position:relative;overflow:hidden}
+.resultbox:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,#fff5 0 3px,transparent 4px);background-size:31px 31px;opacity:.35}
+.resultbox>*{position:relative}.rtitle{font-weight:1000;font-size:23px;text-shadow:2px 2px 0 #fff;margin-bottom:14px}.rline{display:flex;justify-content:space-between;align-items:end;border-bottom:2px dashed #fff8;padding:10px 2px;font-weight:1000}.rline b{font-size:29px;color:#ffe33e;-webkit-text-stroke:1px #4a2600;text-shadow:2px 2px 0 #fff}.rok{display:block;margin:18px auto 0;padding:9px 32px;border:3px solid #555;border-radius:999px;background:#fff;font-weight:1000;font-size:16px}
+</style>
+
+<style id="einana-common-menu-style">
+.gameMenuBtn{position:fixed;right:12px;top:max(12px,env(safe-area-inset-top));z-index:9999;width:54px;height:54px;border-radius:50%;border:3px solid #fff;background:#243b82;color:#fff;font-size:25px;box-shadow:0 4px 12px #0007;display:flex;align-items:center;justify-content:center}
+.gameMenuShade{position:fixed;inset:0;background:#0008;z-index:9998;display:none}.gameMenuShade.show{display:block}
+.gameMenuPanel{position:absolute;right:12px;top:78px;width:min(290px,86vw);padding:14px;border:4px solid #fff;border-radius:22px;background:linear-gradient(145deg,#46c8ff,#5379ee);box-shadow:0 8px 28px #0008}
+.gameMenuTitle{font-size:20px;font-weight:1000;color:#fff;margin:2px 5px 10px;text-shadow:2px 2px #28407c}
+.gameMenuGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.gameMenuGrid a{display:block;text-decoration:none;text-align:center;padding:14px 6px;border:3px solid #fff;border-radius:15px;background:#fff6c9;color:#172554;font-weight:1000;box-shadow:0 3px #5a66a5}
+.gameMenuGrid a:nth-child(2){background:#ffd2ec}.gameMenuGrid a:nth-child(3){background:#d7f7ff}.gameMenuGrid a:nth-child(4){background:#d9ffd5}
+.gameMenuClose{width:100%;margin-top:10px;padding:10px;border:0;border-radius:13px;background:#26365f;color:#fff;font-weight:900}
+</style>
+</head><body><div class="app"><header><h1>🌎 大阪2にっき</h1><p>10/18｜USJ 1DAY</p></header><div class="nav"><a href="menu.html">← にっき</a><a href="map-osaka2.html">🗺️ この日のMAP</a><a href="index.html">タイトル</a></div><section class="card"><h2>🎮 クエスト一覧</h2><details class="q"><summary>🌎 USJ<div class="t">10/18 7:00頃〜22:00頃</div></summary><div class="d">ユニバーサル・スタジオ・ジャパンを丸1日遊び尽くす！<div class="m"><b>MISSION</b><br>このクエストを攻略する！</div><div class="m"><b>MEMORY</b><br>2人の思い出写真をGET 📸</div></div></details></section></div><div id="toast" class="toast"></div>
+<script>
+(function(){
+ const PAGE = document.title;
+ const PREFIX='einana-memory-v1:';
+ const EXPKEY='einana-total-exp-v1';
+ const dbName='einana-memory-images-v1';
+ let db;
+ const req=indexedDB.open(dbName,1);
+ req.onupgradeneeded=e=>{ e.target.result.createObjectStore('photos'); };
+ req.onsuccess=e=>{db=e.target.result; init();};
+ req.onerror=()=>init();
+
+ function key(i){return PREFIX+PAGE+':'+i}
+ function exp(){return Number(localStorage.getItem(EXPKEY)||0)}
+ function setExp(v){localStorage.setItem(EXPKEY,String(v)); document.querySelectorAll('.expnum').forEach(x=>x.textContent=v)}
+ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+ function savePhoto(k,data,cb){
+   if(!db){cb(false);return}
+   const tx=db.transaction('photos','readwrite'); tx.objectStore('photos').put(data,k);
+   tx.oncomplete=()=>cb(true); tx.onerror=()=>cb(false);
+ }
+ function getPhoto(k,cb){
+   if(!db){cb(null);return}
+   const r=db.transaction('photos').objectStore('photos').get(k);
+   r.onsuccess=()=>cb(r.result||null); r.onerror=()=>cb(null);
+ }
+ function compress(file,cb){
+   const reader=new FileReader();
+   reader.onload=()=>{
+     const im=new Image();
+     im.onload=()=>{
+       let w=im.width,h=im.height,max=1200;
+       if(Math.max(w,h)>max){const s=max/Math.max(w,h);w*=s;h*=s}
+       const c=document.createElement('canvas');c.width=w;c.height=h;
+       c.getContext('2d').drawImage(im,0,0,w,h);
+       cb(c.toDataURL('image/jpeg',.78));
+     }; im.src=reader.result;
+   }; reader.readAsDataURL(file);
+ }
+ function init(){
+   const qs=[...document.querySelectorAll('.q')];
+   const bar=document.createElement('div');bar.className='expbar';bar.innerHTML='⭐ TOTAL EXP：<span class="expnum">'+exp()+'</span> EXP';
+   document.querySelector('.nav').after(bar);
+   qs.forEach((q,i)=>{
+     const ms=[...q.querySelectorAll('.m')];
+     const m=ms.find(x=>x.textContent.includes('MEMORY')); if(!m)return;
+     const k=key(i); m.classList.add('memory'); m.innerHTML='<b>📸 MEMORY</b><br><span class="status">2人の思い出写真をGET</span><br><span class="add">＋ 写真を追加</span><input type="file" accept="image/*" hidden>';
+     const inp=m.querySelector('input');
+     m.addEventListener('click',e=>{if(e.target.tagName!=='IMG')inp.click()});
+     inp.addEventListener('click',e=>e.stopPropagation());
+     inp.addEventListener('change',()=>{
+       const f=inp.files&&inp.files[0]; if(!f)return;
+       compress(f,data=>savePhoto(k,data,ok=>{
+         if(!ok){toast('写真を保存できませんでした');return}
+         let img=m.querySelector('img'); if(!img){img=document.createElement('img');m.appendChild(img)}
+         img.src=data;m.classList.add('done');m.querySelector('.status').textContent='おもいでを記録した！';
+         if(!localStorage.getItem(k+':xp')){localStorage.setItem(k+':xp','1');setExp(exp()+100);toast('✨ おもいでGET！ EXP +100');}
+         else toast('📸 写真を更新したよ！');
+       }));
+     });
+     getPhoto(k,data=>{if(data){const img=document.createElement('img');img.src=data;m.appendChild(img);m.classList.add('done');m.querySelector('.status').textContent='おもいで記録済み ✓';}})
+   });
+ }
+})();
+</script>
+<div id="gameResult" class="result"><div class="resultbox">
+<div class="rtitle">🏆 クエストけっか</div>
+<div class="rline"><span>けいけんち</span><b class="rxp">＋0</b></div>
+<div class="rline"><span>つかったおかね</span><b class="rmoney">0円</b></div>
+<div class="rline"><span>たびマネー</span><b class="rcoin">＋0P</b></div>
+<button id="resultOK" class="rok">OK</button></div></div>
+<script>
+(function(){
+ // A different game-like patterned background is chosen once for each diary.
+ const pageKey='einana-bg:'+document.title;
+ let bg=localStorage.getItem(pageKey);
+ if(bg===null){bg=String(Math.floor(Math.random()*7));localStorage.setItem(pageKey,bg)}
+ document.body.classList.add('bg'+bg);
+
+ const EXPKEY='einana-total-exp-v1', SPEND='einana-spend-v1', COIN='einana-coin-v1';
+ const yen=n=>Number(n||0).toLocaleString('ja-JP');
+ const nav=document.querySelector('.nav');
+ const w=document.createElement('div');w.className='wallet';
+ w.innerHTML='<div><small>⭐ けいけんち</small><strong class="vexp">'+yen(localStorage.getItem(EXPKEY))+'</strong></div><div><small>💰 たびマネー</small><strong class="vcoin">'+yen(localStorage.getItem(COIN))+'P</strong></div><div style="grid-column:1/-1"><small>💴 つかったおかね</small><strong class="vspend">'+yen(localStorage.getItem(SPEND))+'円</strong></div>';
+ nav.after(w);
+ function refresh(){document.querySelectorAll('.vexp').forEach(e=>e.textContent=yen(localStorage.getItem(EXPKEY)));document.querySelectorAll('.vcoin').forEach(e=>e.textContent=yen(localStorage.getItem(COIN))+'P');document.querySelectorAll('.vspend').forEach(e=>e.textContent=yen(localStorage.getItem(SPEND))+'円')}
+ function result(xp,money){const r=document.getElementById('gameResult');r.querySelector('.rxp').textContent='＋'+yen(xp);r.querySelector('.rmoney').textContent=yen(money)+'円';r.querySelector('.rcoin').textContent='＋'+yen(money)+'P';r.classList.add('show')}
+ document.getElementById('resultOK').onclick=()=>document.getElementById('gameResult').classList.remove('show');
+
+ document.querySelectorAll('.q').forEach((q,i)=>{
+   const d=q.querySelector('.d'); if(!d)return;
+   const box=document.createElement('div');box.className='moneybox';
+   box.innerHTML='<b>💴 つかったおかね</b><div class="moneyrow"><input inputmode="numeric" pattern="[0-9]*" placeholder="例：3500"><button>記録</button></div>';
+   d.appendChild(box);
+   box.querySelector('button').onclick=()=>{
+     const input=box.querySelector('input');const n=parseInt(String(input.value).replace(/[^0-9]/g,''),10);
+     if(!n||n<1)return;
+     localStorage.setItem(SPEND,String(Number(localStorage.getItem(SPEND)||0)+n));
+     localStorage.setItem(COIN,String(Number(localStorage.getItem(COIN)||0)+n));
+     refresh();result(0,n);input.value='';
+   };
+ });
+ // Hook the existing MEMORY toast so XP gain also opens the result screen.
+ const obs=new MutationObserver(()=>{
+   const t=document.getElementById('toast');
+   if(t&&t.classList.contains('show')&&t.textContent.includes('EXP +100')){refresh();result(100,0)}
+ });
+ const toast=document.getElementById('toast');if(toast)obs.observe(toast,{attributes:true,childList:true,subtree:true});
+})();
+</script>
+
+<button class="gameMenuBtn" id="gameMenuBtn" aria-label="ゲームメニュー">☰</button>
+<div class="gameMenuShade" id="gameMenuShade"><div class="gameMenuPanel">
+<div class="gameMenuTitle">🎮 ゲームメニュー</div>
+<div class="gameMenuGrid">
+<a href="inventory.html">🎒<br>もちもの</a>
+<a href="gacha.html">🎰<br>ガチャ</a>
+<a href="menu.html">📖<br>にっき選択</a>
+<a href="#" id="mapLink">🗺️<br>この日のMAP</a>
+</div>
+<button class="gameMenuClose" id="gameMenuClose">B もどる</button>
+</div></div>
+<script id="einana-common-menu-script">
+(function(){
+ const shade=document.getElementById('gameMenuShade');
+ document.getElementById('gameMenuBtn').onclick=()=>shade.classList.add('show');
+ document.getElementById('gameMenuClose').onclick=()=>shade.classList.remove('show');
+ shade.addEventListener('click',e=>{if(e.target===shade)shade.classList.remove('show')});
+ const f=location.pathname.split('/').pop();
+ let map='map-kyoto.html';
+ if(f.includes('osaka1'))map='map-osaka1.html';
+ else if(f.includes('osaka2'))map='map-osaka2.html';
+ else if(f.includes('osaka3'))map='map-osaka3.html';
+ else if(f==='gacha.html'||f==='inventory.html'){
+   const last=localStorage.getItem('einana-last-diary')||'kyoto';
+   map='map-'+last+'.html';
+ }
+ document.getElementById('mapLink').href=map;
+ if(/^kyoto|^osaka[123]/.test(f) && !f.startsWith('map-')){
+   localStorage.setItem('einana-last-diary',f.replace('.html',''));
+ }
+})();
+</script>
+</body></html>
